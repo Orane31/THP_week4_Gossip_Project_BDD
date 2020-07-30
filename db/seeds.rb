@@ -14,11 +14,14 @@ City.destroy_all
 Tagossip.destroy_all
 Gossip.destroy_all
 Tag.destroy_all
+PrivateMessage.destroy_all
 
 
 10.times do
     city = City.create!(name: Faker::Address.city, zip_code: Faker::Address.zip_code)
 end
+
+puts "city ok"
 
 10.times do 
     user = User.create!(
@@ -31,9 +34,13 @@ end
         )
 end
 
+puts "users created"
+
 10.times do 
     tag = Tag.create!(title: Faker::Lorem.word)
 end
+
+puts "tag ok"
 
 20.times do 
     gossip = Gossip.create!(
@@ -43,7 +50,20 @@ end
     )
 end
 
+puts "gossip created"
+
 20.times do 
     tagossip = Tagossip.create!(tag_id: Tag.all.sample.id, gossip_id: Gossip.all.sample.id)
 end
 
+puts "gossips attributed"
+
+10.times do
+    private_message = PrivateMessage.create!(
+        content: Faker::Quote.yoda,
+        recipient_id: User.all.sample.id,
+        sender_id: User.all.sample.id
+        )
+end
+
+puts "5 new messages"
